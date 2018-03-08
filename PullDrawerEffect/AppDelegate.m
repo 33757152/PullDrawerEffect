@@ -7,6 +7,12 @@
 //
 
 #import "AppDelegate.h"
+#import "LeftViewController.h"
+#import "ZJJBaseTabBarController.h"
+#import "FirstViewController.h"
+#import "SecondViewController.h"
+#import "ThirdViewController.h"
+#import "Header.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +23,27 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    ZJJBaseTabBarController *tabbar = [ZJJBaseTabBarController shareInstance];
+    
+    UINavigationController *firstNav = [[UINavigationController alloc] initWithRootViewController:[[FirstViewController alloc] init]];
+    firstNav.tabBarItem.title = @"消息";
+    firstNav.tabBarItem.image = [[UIImage imageNamed:@"message"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    UINavigationController *secondNav = [[UINavigationController alloc] initWithRootViewController:[[SecondViewController alloc] init]];
+    secondNav.tabBarItem.title = @"联系人";
+    secondNav.tabBarItem.image = [[UIImage imageNamed:@"people"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+
+    UINavigationController *thirdNav = [[UINavigationController alloc] initWithRootViewController:[[ThirdViewController alloc] init]];
+    thirdNav.tabBarItem.title = @"动态";
+    thirdNav.tabBarItem.image = [[UIImage imageNamed:@"dynamic.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+
+    tabbar.viewControllers = @[firstNav,secondNav,thirdNav];
+    self.window.rootViewController = tabbar;
+    
+    LeftViewController *leftVC = [LeftViewController shareManager];
+    leftVC.view.frame = CGRectMake(-OFFSET_X+50, 0, OFFSET_X, SCREEN_HEIGHT);
+    [self.window addSubview:leftVC.view];
+    
     return YES;
 }
 
